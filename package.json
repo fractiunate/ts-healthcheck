@@ -1,0 +1,26 @@
+{
+  "name": "fastify-healthcheck",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/server.ts",
+  "scripts": {
+    "start": "node dist/server.js",
+    "watch-dev": "node-dev src/server.ts --respawn"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/parser": "^5.43.0",
+    "eslint": "^8.27.0",
+    "node-dev": "^7.4.3",
+    "prettier": "^2.7.1",
+    "regenerator-runtime": "^0.13.10",
+    "ts-node": "^10.9.1",
+    "typescript": "^4.9.3"
+  },
+  "dependencies": {
+    "fastify": "^4.9.2"
+  }
+}
