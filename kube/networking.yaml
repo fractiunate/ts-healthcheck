@@ -1,0 +1,39 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  labels:
+    app: tools-tm-ts-healthcheck-service
+  name: tools-tm-ts-healthcheck-service-route
+  namespace: tools
+spec:
+  gateways:
+    - default/common-gateway
+  hosts:
+    - traffic-manager.your.domain.dns
+    - tools-tm-ts-healthcheck-service.tools.svc.cluster.local
+  http:
+    - match:
+        - uri:
+            prefix: /healthcheck
+      name: tools-tm-ts-healthcheck-service-route
+      route:
+        - destination:
+            host: tools-tm-ts-healthcheck-service
+            port:
+              number: 80
+            # subset: v1
+---
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  labels:
+    app: tools-tm-ts-healthcheck
+  name: tools-tm-ts-healthcheck-service-dest
+  namespace: tools
+spec:
+  host: tools-tm-ts-healthcheck-service
+  subsets:
+    - labels:
+        app: tools-tm-ts-healthcheck
+        # version: v1
+      name: v1

@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+  name: tools-tm-ts-healthcheck-service
+  labels:
+    app: tools-tm-ts-healthcheck
+spec:
+  type: ClusterIP
+  selector:
+    app: tools-tm-ts-healthcheck
+  ports:
+    - name: http
+      port: 80
+      protocol: TCP
+      targetPort: 3000
+
+    # - name: https-443
+    #   port: 443
+    #   protocol: TCP
+    #   targetPort: 3000

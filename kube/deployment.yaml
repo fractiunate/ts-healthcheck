@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tools-tm-ts-healthcheck-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: tools-tm-ts-healthcheck
+  template:
+    metadata:
+      labels:
+        app: tools-tm-ts-healthcheck
+        sidecar.istio.io/inject: "true"
+    spec:
+      containers:
+        - name: tm-ts-healthcheck
+          image: fractiunate/ts-healthcheck:latest
+          ports:
+            - containerPort: 3000
+          # env:
+          #   - name: MONGO_URL
+          #     value: mongodb://mongo:27017/dev
+          imagePullPolicy: Always
+          # See: https://home.robusta.dev/blog/kubernetes-memory-limit
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "64Mi" # the memory limit equals the above request!
+              # no cpu limit! this is excluded on purpose
